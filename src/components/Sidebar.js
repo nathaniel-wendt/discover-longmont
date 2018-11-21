@@ -10,7 +10,7 @@ class Sidebar extends Component {
     return (
         <div id="sidebar">
             <input type={"search"} id={"search"} placeholder={"Search Locations"} />
-            <div class="toggle-btn" onClick={this.toggleSidebar}>
+            <div id="toggle-btn" onClick={this.toggleSidebar}>
                 <span></span>
                 <span></span>
                 <span></span>
