@@ -6,7 +6,8 @@ import './App.css';
 class App extends Component {
 
   state = {
-    locations: []
+    locations: [],
+    markers: []
   }
 
   componentDidMount() {
@@ -23,18 +24,21 @@ class App extends Component {
     let infowindow = new window.google.maps.InfoWindow()
 
     // Create Map Markers Dynamically using locations array
-    this.state.locations.map(location => {
-
-      let marker = new window.google.maps.Marker({
+    this.state.locations.forEach(location => {
+      const marker = new window.google.maps.Marker({
         position: {lat: location.pos.lat, lng: location.pos.lng},
         map: map,
         title: location.name
       })
 
       marker.addListener('click', function() {
-        infowindow.setContent(`${location.name}`)
+        infowindow.setContent(`<h4>${location.name}</h4><p>${location.street}</p>`);
         infowindow.open(map, marker)
       })
+
+      this.setState((state) => ({
+        markers: [...state.markers, marker]
+      }))
     });
   }
 
