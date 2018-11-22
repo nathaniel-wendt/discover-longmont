@@ -29,13 +29,16 @@
   border-bottom: 1px solid lightgrey;
 }
 
-#sidebar .toggle-btn {
+#toggle-btn {
   position: absolute;
-  left: 275px;
-  top: 15px;
+  left: 270px;
+  top: 10px;
+  background-color: white;
+  padding: 5px;
+  border-radius: 4px;
 }
 
-#sidebar .toggle-btn span {
+#toggle-btn span {
   display: block;
   width: 35px;
   height: 5px;

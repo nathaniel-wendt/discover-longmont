@@ -6,8 +6,7 @@ import './App.css';
 class App extends Component {
 
   state = {
-    locations: [],
-    markers: []
+    locations: []
   }
 
   componentDidMount() {
@@ -29,8 +28,7 @@ class App extends Component {
       let marker = new window.google.maps.Marker({
         position: {lat: location.pos.lat, lng: location.pos.lng},
         map: map,
-        title: location.name,
-        animation: window.google.maps.Animation.DROP
+        title: location.name
       })
 
       marker.addListener('click', function() {
