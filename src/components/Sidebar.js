@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import LocItem from './LocItem';
 
 class Sidebar extends Component {
 
@@ -15,10 +16,14 @@ class Sidebar extends Component {
                 <span></span>
                 <span></span>
             </div>
-            <ul>
-                <li>1st Result</li>
-                <li>2nd Result</li>
-                <li>3rd Result</li>
+            <ul className="location-list">
+                {this.props.locations && this.props.locations
+                    .map((location, index) => 
+                        <LocItem 
+                            key={index}
+                            {...location}
+                        />
+                )}  
             </ul>
         </div>
     );

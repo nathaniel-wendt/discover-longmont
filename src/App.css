@@ -27,6 +27,7 @@
   list-style: none;
   padding: 15px 20px;
   border-bottom: 1px solid lightgrey;
+  cursor: pointer;
 }
 
 #toggle-btn {
@@ -36,6 +37,7 @@
   background-color: white;
   padding: 5px;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 #toggle-btn span {
