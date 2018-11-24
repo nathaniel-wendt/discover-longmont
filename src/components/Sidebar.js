@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LocItem from './LocItem';
+import List from './List';
 
 class Sidebar extends Component {
 
@@ -19,9 +19,10 @@ class Sidebar extends Component {
             <ul className="location-list">
                 {this.props.locations && this.props.locations
                     .map((location, index) => 
-                        <LocItem 
+                        <List 
                             key={index}
                             {...location}
+                            handleListClick={this.props.handleListClick}
                         />
                 )}  
             </ul>

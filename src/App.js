@@ -14,6 +14,24 @@ class App extends Component {
     this.fetchLocationData()
   }
 
+  fetchLocationData = () => {
+    fetch('https://api.myjson.com/bins/f948q')
+    .then(response => response.json())
+    .then(data =>
+      this.setState({
+        locations: data
+      },  this.renderMap())
+    )
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
+  renderMap = () => {
+    loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyAp2UAcZ8h6HlJ_J3Ha9qZcbt6ohSR9yFs&callback=initMap")
+    window.initMap = this.initMap
+  }
+
   // Initialize Map by setting Map Center and adding Map Markers using Lat Lng
   initMap = () => {
     let map = new window.google.maps.Map(document.getElementById('map'), {
@@ -36,35 +54,17 @@ class App extends Component {
         infowindow.setContent(`<h4>${location.name}</h4><p>${location.street}</p>`);
         infowindow.open(map, marker)
       })
-
-      this.setState((state) => ({
-        markers: [...state.markers, marker]
-      }))
-    });
-  }
-
-  renderMap = () => {
-    loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyAp2UAcZ8h6HlJ_J3Ha9qZcbt6ohSR9yFs&callback=initMap")
-    window.initMap = this.initMap
-  }
-
-  fetchLocationData = () => {
-    fetch('https://api.myjson.com/bins/f948q')
-    .then(response => response.json())
-    .then(data =>
-      this.setState({
-        locations: data
-      },  this.renderMap())
-    )
-    .catch(err => {
-      console.log(err);
     })
+  }
+
+  handleListClick =(location) => {
+    console.log(location);
   }
 
   render() {
     return (
       <div className="App">
-        <Sidebar {...this.state} />
+        <Sidebar {...this.state} handleListClick={this.handleListClick} />
         <Map {...this.state} />      
       </div>
     );
