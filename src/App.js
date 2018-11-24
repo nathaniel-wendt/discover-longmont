@@ -18,7 +18,8 @@ class App extends Component {
   initMap = () => {
     let map = new window.google.maps.Map(document.getElementById('map'), {
       center: {lat: 40.1672, lng: -105.1019},
-      zoom: 13
+      zoom: 13,
+      mapTypeControl: false
     });
 
     let infowindow = new window.google.maps.InfoWindow()
