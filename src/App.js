@@ -4,11 +4,10 @@ import Map from './components/Map.js';
 import './App.css';
 
 class App extends Component {
-
+  
   state = {
-    map: '',
     locations: [],
-    markers: []
+    markers: [],
   }
  
   componentDidMount() {
@@ -42,11 +41,11 @@ class App extends Component {
       mapTypeControl: false
     });
 
-    let markers = [];
     let infowindow = new window.google.maps.InfoWindow();
+    let allMarkers = [];
 
     // Create Map Markers Dynamically using locations array
-    this.state.locations.forEach(location => {
+    this.state.locations.map(location => {
       let marker = new window.google.maps.Marker({
         position: {lat: location.pos.lat, lng: location.pos.lng},
         map: map,
@@ -54,28 +53,27 @@ class App extends Component {
         animation: window.google.maps.Animation.DROP
       })
 
-      markers.push(marker);
-
-      marker.addListener('click', function() {
-        showInfoWindow(this, infowindow);
+      marker.addListener('click', () => {
+        marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        window.setTimeout(marker.setAnimation(false), 100);
+        infowindow.setContent(`<h4>${location.name}</h4><p>${location.street}</p>`);
+        infowindow.open(map, marker);
       })
-
-      function showInfoWindow(marker, infowindow) {
-        if (infowindow.marker !== marker) {
-          infowindow.marker = marker;
-          infowindow.setContent(`<h4>${location.name}</h4><p>${location.street}</p>`);
-          infowindow.open(map, marker);
-        }
-      }
-    })
-    this.setState({ markers })
+      allMarkers[allMarkers.length] = marker;
+      return location;
+    });
+    this.setState({ markers: allMarkers });
   }
+
+
+
 
   listClick = (location) => {
     console.log(location);
   }
 
   render() {
+    console.log(this.state.markers);
     return (
       <div className="App">
         <Sidebar {...this.state} listClick={this.listClick} />
