@@ -65,15 +65,14 @@ class App extends Component {
     this.setState({ markers: allMarkers });
   }
 
-
-
-
   listClick = (location) => {
-    console.log(location);
+    let winEvent = window.google.maps.event;
+    let selected = this.state.markers.find(marker => marker.title === location.name);
+    
+    winEvent.trigger(selected, 'click');
   }
 
   render() {
-    console.log(this.state.markers);
     return (
       <div className="App">
         <Sidebar {...this.state} listClick={this.listClick} />
