@@ -6,10 +6,11 @@ import './App.css';
 class App extends Component {
 
   state = {
+    map: '',
     locations: [],
     markers: []
   }
-
+ 
   componentDidMount() {
     this.fetchLocationData()
   }
@@ -40,21 +41,32 @@ class App extends Component {
       mapTypeControl: false
     });
 
-    let infowindow = new window.google.maps.InfoWindow()
+    let markers = [];
+    let infowindow = new window.google.maps.InfoWindow();
 
     // Create Map Markers Dynamically using locations array
     this.state.locations.forEach(location => {
-      const marker = new window.google.maps.Marker({
+      let marker = new window.google.maps.Marker({
         position: {lat: location.pos.lat, lng: location.pos.lng},
         map: map,
-        title: location.name
+        title: location.name,
       })
 
+      markers.push(marker);
+
       marker.addListener('click', function() {
-        infowindow.setContent(`<h4>${location.name}</h4><p>${location.street}</p>`);
-        infowindow.open(map, marker)
+        loadInfoWindow(this, infowindow);
       })
+
+      function loadInfoWindow(marker, infowindow) {
+        if (infowindow.marker !== marker) {
+          infowindow.marker = marker;
+          infowindow.setContent(`<h4>${location.name}</h4><p>${location.street}</p>`);
+          infowindow.open(map, marker);
+        }
+      }
     })
+    this.setState({ markers })
   }
 
   handleListClick =(location) => {
