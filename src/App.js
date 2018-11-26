@@ -50,6 +50,7 @@ class App extends Component {
         position: {lat: location.pos.lat, lng: location.pos.lng},
         map: map,
         title: location.name,
+        animation: window.google.maps.Animation.DROP
       })
 
       markers.push(marker);
@@ -69,7 +70,7 @@ class App extends Component {
     this.setState({ markers })
   }
 
-  handleListClick =(location) => {
+  handleListClick = (location) => {
     console.log(location);
   }
 
