@@ -22,7 +22,7 @@ class Sidebar extends Component {
                         <List 
                             key={index}
                             {...location}
-                            handleListClick={this.props.handleListClick}
+                            listClick={this.props.listClick}
                         />
                 )}  
             </ul>

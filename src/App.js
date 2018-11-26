@@ -56,10 +56,10 @@ class App extends Component {
       markers.push(marker);
 
       marker.addListener('click', function() {
-        loadInfoWindow(this, infowindow);
+        showInfoWindow(this, infowindow);
       })
 
-      function loadInfoWindow(marker, infowindow) {
+      function showInfoWindow(marker, infowindow) {
         if (infowindow.marker !== marker) {
           infowindow.marker = marker;
           infowindow.setContent(`<h4>${location.name}</h4><p>${location.street}</p>`);
@@ -70,14 +70,14 @@ class App extends Component {
     this.setState({ markers })
   }
 
-  handleListClick = (location) => {
+  listClick = (location) => {
     console.log(location);
   }
 
   render() {
     return (
       <div className="App">
-        <Sidebar {...this.state} handleListClick={this.handleListClick} />
+        <Sidebar {...this.state} listClick={this.listClick} />
         <Map {...this.state} />      
       </div>
     );
