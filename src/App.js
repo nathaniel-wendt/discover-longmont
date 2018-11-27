@@ -37,7 +37,7 @@ class App extends Component {
   }
 
   renderMap = () => {
-    const API_KEY = 'AIzaSyAp2UAcZ8h6HlJ_J3Ha9qZcbt6ohSR9yFs';
+    const API_KEY = '';
     loadScript(`https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=initMap`)
     window.initMap = this.initMap
   }
@@ -72,7 +72,7 @@ class App extends Component {
     });
     this.setState({ markers: renderMarkers });
   }
-  
+
   listClick = (location) => {
     let winEvent = window.google.maps.event;
     let selected = this.state.markers.find(marker => marker.title === location.name);
