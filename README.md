@@ -16,6 +16,8 @@ If it doesn't open automatically you can view the project in your browser by nav
 
 * You will also need a Google Maps API Key, instructions can be found at [developers.google.com](https://developers.google.com/maps/documentation/android-sdk/signup).  Once you have your API Key you can add and save it to line 37 in `src/App.js` to render the Map.
 
+This project uses a service worker for offline use, however this will only work with the production build of the application.
+
 ## Sources Used
 1. [taniarascia.com - javascript fetch API](https://www.taniarascia.com/how-to-use-the-javascript-fetch-api-to-get-json-data/)
 2. [developers.google.com - Javascript Markers](https://developers.google.com/maps/documentation/javascript/markers)
