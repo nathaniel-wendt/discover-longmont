@@ -12,6 +12,7 @@ class App extends Component {
     query: ''
   }
  
+  // Added window.gm_authFailure to catch any errors on Map Load
   componentDidMount() {
     this.fetchLocationData()
     window.gm_authFailure = () => {
@@ -19,6 +20,8 @@ class App extends Component {
     }
   }
 
+  /* Fetching myjson.com API data and pushing it into (2) arrays locations & allLocations
+     this gives the onQueryChange function a fallback array if something is typed and erased */
   fetchLocationData = () => {
     fetch('https://api.myjson.com/bins/f948q')
     .then(response => response.json())
@@ -58,7 +61,7 @@ class App extends Component {
         title: location.name,
         animation: window.google.maps.Animation.DROP
       })
-
+      // adds a click event that opens the info window and bounces the marker
       marker.addListener('click', () => {
         marker.setAnimation(window.google.maps.Animation.BOUNCE);
         window.setTimeout(marker.setAnimation(false), 100);
@@ -69,7 +72,7 @@ class App extends Component {
     });
     this.setState({ markers: renderMarkers });
   }
-
+  
   listClick = (location) => {
     let winEvent = window.google.maps.event;
     let selected = this.state.markers.find(marker => marker.title === location.name);
@@ -77,7 +80,8 @@ class App extends Component {
     winEvent.trigger(selected, 'click');
   }
 
-  /* learned from kenjournal's YouTube Video: https://www.youtube.com/watch?v=kadSBAsjDXI */
+  /* function to update location and marker results based on query
+     Inspired by kenjournal's YouTube Video: https://www.youtube.com/watch?v=kadSBAsjDXI */
   onQueryChange = (query) => {
     this.setState({ query });
     if (query) {
