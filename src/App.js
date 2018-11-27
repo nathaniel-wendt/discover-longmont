@@ -14,6 +14,9 @@ class App extends Component {
  
   componentDidMount() {
     this.fetchLocationData()
+    window.gm_authFailure = () => {
+      alert('Sorry, the Map failed to load.')
+    }
   }
 
   fetchLocationData = () => {
@@ -26,7 +29,7 @@ class App extends Component {
       },  this.renderMap())
     )
     .catch(err => {
-      console.log(err);
+      alert('Sorry the following error occurred:' + err);
     })
   }
 
