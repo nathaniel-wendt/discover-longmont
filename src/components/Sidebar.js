@@ -9,7 +9,8 @@ class Sidebar extends Component {
 
   render() {
     return (
-        <div id="sidebar">
+        <div id="sidebar" className="active">
+        <h1>Discover Longmont</h1>
             <input type={"search"} id={"search"} placeholder={"Search Locations"} 
                 value={this.props.queryString} 
                 onChange={e => this.props.onQueryChange(e.target.value)}
@@ -29,6 +30,9 @@ class Sidebar extends Component {
                         />
                 )}  
             </ul>
+            <div className="footer">
+                <p>Built using Google Maps API & MyJSON API</p>
+            </div>
         </div>
     );
   }

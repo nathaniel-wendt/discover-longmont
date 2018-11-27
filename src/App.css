@@ -18,6 +18,11 @@
   left: 0;
 }
 
+#sidebar h1 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
 #sidebar ul {
   margin: 0;
   padding: 0;
@@ -49,10 +54,21 @@
 }
 
 #search {
-  width: 100%;
+  width: 90%;
+  display: block;
+  margin: auto;
+  padding: 0 10px;
   height: 2.5rem;
   font-size: 1.2rem;
-  border: 1px solid lightgray;
+  border: 1px solid black;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  color: white;
+  background-color: darkblue;
 }
 
 #map {
