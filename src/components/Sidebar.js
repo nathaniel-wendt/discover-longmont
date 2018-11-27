@@ -10,7 +10,10 @@ class Sidebar extends Component {
   render() {
     return (
         <div id="sidebar">
-            <input type={"search"} id={"search"} placeholder={"Search Locations"} />
+            <input type={"search"} id={"search"} placeholder={"Search Locations"} 
+                value={this.props.queryString} 
+                onChange={e => this.props.onQueryChange(e.target.value)}
+            />
             <div id="toggle-btn" onClick={this.toggleSidebar}>
                 <span></span>
                 <span></span>

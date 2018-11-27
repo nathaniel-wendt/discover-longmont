@@ -7,7 +7,9 @@ class App extends Component {
   
   state = {
     locations: [],
+    allLocations: [],
     markers: [],
+    query: ''
   }
  
   componentDidMount() {
@@ -19,7 +21,8 @@ class App extends Component {
     .then(response => response.json())
     .then(data =>
       this.setState({
-        locations: data
+        locations: data,
+        allLocations: data
       },  this.renderMap())
     )
     .catch(err => {
@@ -42,10 +45,10 @@ class App extends Component {
     });
 
     let infowindow = new window.google.maps.InfoWindow();
-    let allMarkers = [];
+    let renderMarkers = [];
 
     // Create Map Markers Dynamically using locations array
-    this.state.locations.map(location => {
+    this.state.locations.forEach(location => {
       let marker = new window.google.maps.Marker({
         position: {lat: location.pos.lat, lng: location.pos.lng},
         map: map,
@@ -59,10 +62,9 @@ class App extends Component {
         infowindow.setContent(`<h4>${location.name}</h4><p>${location.street}</p>`);
         infowindow.open(map, marker);
       })
-      allMarkers[allMarkers.length] = marker;
-      return location;
+      renderMarkers[renderMarkers.length] = marker;
     });
-    this.setState({ markers: allMarkers });
+    this.setState({ markers: renderMarkers });
   }
 
   listClick = (location) => {
@@ -72,11 +74,36 @@ class App extends Component {
     winEvent.trigger(selected, 'click');
   }
 
+  /* learned from kenjournal's YouTube Video: https://www.youtube.com/watch?v=kadSBAsjDXI */
+  onQueryChange = (query) => {
+    this.setState({ query });
+    if (query) {
+      this.setState({locations: this.filterLocations(query, this.state.locations)});
+    } else {
+      this.setState({locations: this.state.allLocations});
+    }
+    this.state.markers.forEach(marker => {
+      marker.title.toLowerCase().includes(query.toLowerCase()) === true ?
+      marker.setVisible(true) :
+      marker.setVisible(false);
+    })
+  }
+
+  filterLocations = (query, locations) => {
+    return locations.filter(location => location.name.toLowerCase().includes(query.toLowerCase()));
+  };
+
   render() {
     return (
       <div className="App">
-        <Sidebar {...this.state} listClick={this.listClick} />
-        <Map {...this.state} />      
+        <Sidebar 
+          {...this.state} 
+          listClick={this.listClick}
+          queryString = {this.state.query}
+          onQueryChange = {this.onQueryChange} 
+        />
+        <Map 
+        {...this.state} />      
       </div>
     );
   }
