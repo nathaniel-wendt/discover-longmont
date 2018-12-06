@@ -23,7 +23,7 @@ class App extends Component {
   /* Fetching myjson.com API data and pushing it into (2) arrays locations & allLocations
      this gives the onQueryChange function a fallback array if something is typed and erased */
   fetchLocationData = () => {
-    fetch('https://api.myjson.com/bins/f948q')
+    fetch('https://api.myjson.com/bins/bbcb2')
     .then(response => response.json())
     .then(data =>
       this.setState({
@@ -52,7 +52,7 @@ class App extends Component {
 
     let infowindow = new window.google.maps.InfoWindow();
     let renderMarkers = [];
-
+    
     // Create Map Markers Dynamically using locations array
     this.state.locations.forEach(location => {
       let marker = new window.google.maps.Marker({
@@ -62,10 +62,15 @@ class App extends Component {
         animation: window.google.maps.Animation.DROP
       })
       // adds a click event that opens the info window and bounces the marker
+      let infoContent = `<div id="info-win">
+                          <h4>${location.name}</h4>
+                          <p>${location.blurb}</p>
+                        </div>`;
+
       marker.addListener('click', () => {
         marker.setAnimation(window.google.maps.Animation.BOUNCE);
         window.setTimeout(marker.setAnimation(false), 100);
-        infowindow.setContent(`<h4>${location.name}</h4><p>${location.street}</p>`);
+        infowindow.setContent(infoContent);
         infowindow.open(map, marker);
       })
       renderMarkers[renderMarkers.length] = marker;

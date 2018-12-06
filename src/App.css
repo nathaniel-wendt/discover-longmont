@@ -69,10 +69,20 @@
 
 .footer {
   position: absolute;
+  width: 270px;
   bottom: 0;
+  display: flex;
+  justify-content: center;
   text-align: center;
+  padding: 10px 0;
   border-top: 1px solid darkgrey;
   background-color: #fff;
+}
+
+#info-win h4, p {
+  width: 180px;
+  margin: 5px;
+  padding: 0;
 }
 
 #map {
